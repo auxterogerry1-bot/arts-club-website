@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Canvas Connoisseur | ARTS CLUB</title>
 
 <style>
@@ -17,13 +16,13 @@
 }
 
 :root {
-    --bg: #0d0d0d;
-    --card: #171717;
-    --card2: #202020;
+    --bg: #080808;
+    --card: #141414;
+    --card2: #1d1d1d;
     --text: #f5f2ea;
     --muted: #aaa69d;
-    --accent: #d7b56d;
-    --border: rgba(255,255,255,0.1);
+    --gold: #d7b56d;
+    --border: rgba(255,255,255,.1);
 }
 
 body {
@@ -32,9 +31,2186 @@ body {
     font-family: "DM Sans", sans-serif;
 }
 
-/* NAVBAR */
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
 
 nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 75px;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 7%;
+
+    background: rgba(8,8,8,.9);
+    backdrop-filter: blur(18px);
+
+    border-bottom: 1px solid var(--border);
+}
+
+.logo {
+    font-family: "Playfair Display", serif;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.logo span {
+    color: var(--gold);
+}
+
+.nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    transition: .3s;
+}
+
+.nav-links a:hover {
+    color: var(--gold);
+}
+
+.menu {
+    display: none;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+
+    padding: 160px 7% 100px;
+
+    background:
+        radial-gradient(
+            circle at 80% 30%,
+            rgba(215,181,109,.15),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 20% 80%,
+            rgba(100,200,255,.07),
+            transparent 30%
+        );
+}
+
+.hero-content {
+    max-width: 850px;
+}
+
+.eyebrow {
+    color: var(--gold);
+    letter-spacing: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(55px, 9vw, 115px);
+    line-height: .9;
+    margin-bottom: 30px;
+}
+
+.hero h1 span {
+    color: var(--gold);
+}
+
+.hero p {
+    max-width: 620px;
+    color: var(--muted);
+    line-height: 1.8;
+    font-size: 17px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 35px;
+}
+
+.btn {
+    padding: 14px 25px;
+    text-decoration: none;
+    display: inline-block;
+    transition: .3s;
+    font-weight: 600;
+    border-radius: 3px;
+}
+
+.btn-primary {
+    background: var(--gold);
+    color: #111;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+}
+
+.btn-outline {
+    border: 1px solid var(--border);
+    color: white;
+}
+
+.btn-outline:hover {
+    border-color: var(--gold);
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+section {
+    padding: 100px 7%;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 40px;
+}
+
+.section-title h2 {
+    font-family: "Playfair Display", serif;
+    font-size: 48px;
+}
+
+.section-title p {
+    color: var(--muted);
+    max-width: 420px;
+    line-height: 1.6;
+}
+
+.gold {
+    color: var(--gold);
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box {
+    width: 100%;
+    padding: 15px 18px;
+    margin-bottom: 25px;
+
+    background: var(--card);
+    color: white;
+
+    border: 1px solid var(--border);
+    outline: none;
+}
+
+.search-box:focus {
+    border-color: var(--gold);
+}
+
+/* =========================
+   FILTERS
+========================= */
+
+.gallery-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.filter-btn {
+    background: transparent;
+    color: var(--muted);
+
+    border: 1px solid var(--border);
+
+    padding: 10px 18px;
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: var(--gold);
+    color: #111;
+}
+
+/* =========================
+   ART GALLERY
+========================= */
+
+.gallery {
+    columns: 3 280px;
+    column-gap: 20px;
+}
+
+.art-card {
+    background: var(--card);
+
+    margin-bottom: 20px;
+
+    break-inside: avoid;
+
+    border: 1px solid var(--border);
+
+    overflow: hidden;
+
+    cursor: pointer;
+
+    transition: .35s;
+}
+
+.art-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(215,181,109,.6);
+}
+
+.art-image {
+    width: 100%;
+    height: 320px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+.art-info {
+    padding: 20px;
+}
+
+.art-info h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 23px;
+    margin-bottom: 8px;
+}
+
+.artist {
+    color: var(--gold);
+    font-size: 13px;
+}
+
+.art-info p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+/* =========================
+   ART VIEWER
+========================= */
+
+.art-viewer {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 3000;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(40,100,120,.18),
+            rgba(0,0,0,.96)
+        );
+
+    backdrop-filter: blur(15px);
+}
+
+.art-viewer.show {
+    display: flex;
+}
+
+.viewer-box {
+    width: min(90vw, 800px);
+    text-align: center;
+}
+
+.viewer-stage {
+    width: min(80vw, 650px);
+    height: min(70vh, 650px);
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    perspective: 1200px;
+
+    touch-action: none;
+}
+
+.hologram {
+    position: relative;
+
+    max-width: 80%;
+    max-height: 80%;
+
+    transform-style: preserve-3d;
+
+    transition: transform .08s linear;
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+    box-shadow:
+        0 0 15px rgba(100,220,255,.35),
+        0 0 35px rgba(100,220,255,.12);
+}
+
+.hologram img {
+    width: 100%;
+    height: 100%;
+
+    max-width: 600px;
+    max-height: 550px;
+
+    object-fit: contain;
+
+    display: block;
+
+    border: 1px solid rgba(120,220,255,.45);
+
+    position: relative;
+    z-index: 1;
+}
+
+/* Reflection is clipped to artwork */
+
+.hologram::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 70%;
+    height: 100%;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            105deg,
+            transparent 0%,
+            transparent 35%,
+            rgba(255,255,255,.08) 45%,
+            rgba(255,255,255,.55) 50%,
+            rgba(255,255,255,.12) 55%,
+            transparent 65%,
+            transparent 100%
+        );
+
+    transform: skewX(-18deg);
+
+    mix-blend-mode: screen;
+
+    animation:
+        artworkReflection
+        4s ease-in-out infinite;
+}
+
+.hologram::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 3;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.10),
+            transparent 25%,
+            transparent 70%,
+            rgba(100,220,255,.08)
+        );
+
+    mix-blend-mode: screen;
+
+    opacity: .45;
+}
+
+@keyframes artworkReflection {
+
+    0% {
+        left: -120%;
+    }
+
+    45% {
+        left: 130%;
+    }
+
+    100% {
+        left: 130%;
+    }
+}
+
+/* X BUTTON */
+
+.close-viewer {
+    position: fixed;
+
+    top: 20px;
+    right: 28px;
+
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,.2);
+
+    background: rgba(0,0,0,.5);
+
+    color: white;
+
+    font-size: 34px;
+
+    cursor: pointer;
+    z-index: 9999;
+    pointer-events: auto;
+
+    transition: .3s;
+}
+
+.close-viewer:hover {
+    background: var(--gold);
+    color: #111;
+    transform: rotate(90deg);
+}
+
+.viewer-title {
+    font-family: "Playfair Display", serif;
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+.viewer-artist {
+    color: var(--gold);
+    margin-top: 5px;
+}
+
+.viewer-help {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.viewer-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.viewer-controls button {
+    padding: 10px 17px;
+
+    background: var(--card);
+    color: white;
+
+    border: 1px solid var(--border);
+
+    cursor: pointer;
+}
+
+.viewer-controls button:hover {
+    border-color: var(--gold);
+}
+
+/* =========================
+   ART MUSEUM
+========================= */
+
+.museum {
+    background: #101010;
+}
+
+.contest-selector {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.contest-selector select {
+    width: 100%;
+
+    padding: 14px;
+
+    background: var(--card2);
+    color: white;
+
+    border: 1px solid var(--border);
+}
+
+.contestants {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.contestant {
+    position: relative;
+
+    padding: 25px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    transition: .3s;
+}
+
+.contestant:hover {
+    transform: translateY(-4px);
+    border-color: rgba(215,181,109,.4);
+}
+
+.number {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+
+    color: var(--gold);
+
+    font-family: "Playfair Display";
+}
+
+.contestant h3 {
+    font-family: "Playfair Display";
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.contestant p {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 7px 0;
+}
+
+.placement {
+    display: inline-block;
+    margin-top: 15px;
+    color: var(--gold);
+    font-weight: bold;
+}
+
+/* =========================
+   SHOP
+========================= */
+
+.shop-section {
+    background: #080808;
+}
+
+.shop-notice {
+    padding: 18px;
+
+    margin-bottom: 30px;
+
+    border-left: 3px solid var(--gold);
+
+    background: var(--card);
+
+    color: var(--muted);
+
+    line-height: 1.6;
+}
+
+.shop {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.product {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    overflow: hidden;
+
+    transition: .3s;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+
+    border-color:
+        rgba(215,181,109,.5);
+}
+
+.product img {
+    width: 100%;
+    height: 260px;
+
+    object-fit: cover;
+}
+
+.product-content {
+    padding: 20px;
+}
+
+.product h3 {
+    font-family: "Playfair Display";
+    font-size: 24px;
+}
+
+.price {
+    color: var(--gold);
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    margin: 10px 0;
+}
+
+.stock {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    margin-bottom: 15px;
+}
+
+.stock strong {
+    color: white;
+}
+
+.buy {
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    background: var(--gold);
+
+    color: #111;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    transition: .3s;
+}
+
+.buy:hover {
+    filter: brightness(1.1);
+}
+
+.buy:disabled {
+    background: #444;
+
+    color: #999;
+
+    cursor: not-allowed;
+}
+
+/* =========================
+   ORDER MODAL
+========================= */
+
+.order-modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 4000;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: rgba(0,0,0,.88);
+
+    padding: 20px;
+}
+
+.order-modal.show {
+    display: flex;
+}
+
+.order-box {
+    width: min(95%, 500px);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    padding: 30px;
+}
+
+.order-box h2 {
+    font-family: "Playfair Display";
+
+    font-size: 32px;
+
+    margin-bottom: 8px;
+}
+
+.order-product-display {
+    color: var(--gold);
+
+    margin-bottom: 20px;
+}
+
+.order-box label {
+    display: block;
+
+    font-size: 13px;
+
+    color: var(--muted);
+
+    margin-bottom: 5px;
+}
+
+.order-box input,
+.order-box select,
+.order-box textarea {
+    width: 100%;
+
+    padding: 13px;
+
+    margin-bottom: 15px;
+
+    background: var(--card2);
+
+    border: 1px solid var(--border);
+
+    color: white;
+
+    outline: none;
+}
+
+.order-box textarea {
+    height: 90px;
+
+    resize: vertical;
+}
+
+.order-box input:focus,
+.order-box select:focus,
+.order-box textarea:focus {
+    border-color: var(--gold);
+}
+
+.order-total {
+    padding: 15px;
+
+    margin-bottom: 15px;
+
+    background: #101010;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-weight: bold;
+}
+
+.order-total span:last-child {
+    color: var(--gold);
+}
+
+.order-buttons {
+    display: flex;
+
+    gap: 10px;
+}
+
+.order-submit {
+    flex: 1;
+
+    padding: 13px;
+
+    border: none;
+
+    background: var(--gold);
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+.order-cancel {
+    padding: 13px;
+
+    border: 1px solid var(--border);
+
+    background: transparent;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+/* =========================
+   ARTISTS
+========================= */
+
+.artists {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 20px;
+}
+
+.artist-card {
+    padding: 25px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+}
+
+.artist-avatar {
+    width: 70px;
+
+    height: 70px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    margin-bottom: 15px;
+}
+
+.artist-card h3 {
+    font-family: "Playfair Display";
+}
+
+.artist-card p {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    margin-top: 5px;
+}
+
+/* =========================
+   EVENTS
+========================= */
+
+.events {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 20px;
+}
+
+.event {
+    padding: 30px;
+
+    background: var(--card);
+
+    border-left:
+        3px solid var(--gold);
+}
+
+.event-date {
+    color: var(--gold);
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+}
+
+.event h3 {
+    font-family: "Playfair Display";
+
+    font-size: 28px;
+
+    margin: 10px 0;
+}
+
+.event p {
+    color: var(--muted);
+
+    line-height: 1.6;
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about {
+    max-width: 900px;
+
+    margin: auto;
+
+    text-align: center;
+}
+
+.about h2 {
+    font-family: "Playfair Display";
+
+    font-size: 50px;
+}
+
+.about p {
+    color: var(--muted);
+
+    line-height: 1.9;
+
+    margin-top: 20px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    border-top: 1px solid var(--border);
+
+    padding: 40px 7%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+footer span {
+    color: var(--gold);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px) {
+
+    .nav-links {
+        position: absolute;
+
+        top: 75px;
+
+        left: 0;
+
+        width: 100%;
+
+        display: none;
+
+        flex-direction: column;
+
+        background: #111;
+
+        padding: 25px;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .menu {
+        display: block;
+    }
+
+    .contestants,
+    .shop,
+    .artists,
+    .events {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title {
+        display: block;
+    }
+
+    .section-title h2 {
+        margin-bottom: 15px;
+    }
+
+    footer {
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+}
+
+/* =========================
+   WORKING SYSTEM ADDITIONS
+========================= */
+.nav-action{background:transparent;color:white;border:1px solid var(--border);padding:8px 12px;cursor:pointer;font-size:12px;font-weight:bold}.nav-action:hover{border-color:var(--gold);color:var(--gold)}.admin-access{color:var(--gold)}#cartCount,#pendingBadge{display:inline-flex;min-width:20px;height:20px;align-items:center;justify-content:center;border-radius:99px;background:var(--gold);color:#111;font-size:11px;margin-left:4px}.flip-btn{min-width:105px} .flip-controls{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}.flip-controls .flip-btn{min-width:135px}.modal-x{position:absolute;right:15px;top:12px;background:transparent;border:0;color:white;font-size:30px;cursor:pointer}.order-box{position:relative}.cart-box{width:min(95%,700px)}.cart-row{display:flex;gap:15px;align-items:center;padding:14px 0;border-bottom:1px solid var(--border)}.cart-row img{width:72px;height:72px;object-fit:cover}.cart-main{flex:1;display:flex;flex-direction:column;gap:4px}.cart-main span{font-size:12px;color:var(--muted)}.qty-controls{display:flex;gap:7px;align-items:center;margin-top:5px}.qty-controls button{border:1px solid var(--border);background:var(--card2);color:white;padding:6px 10px;cursor:pointer}.qty-controls .remove-btn{margin-left:5px;color:#ff9c9c}.empty-state{padding:30px 10px;text-align:center;color:var(--muted);border:1px dashed var(--border)}.form-hint,.admin-note,.demo-code{color:var(--muted);font-size:12px;line-height:1.5;display:block;margin:-8px 0 16px}.demo-code{margin-top:15px}.admin-login{width:min(95%,520px)}.admin-box{width:min(96%,1100px);max-height:92vh;overflow:auto}.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0;border-bottom:1px solid var(--border);padding-bottom:10px}.admin-tab{background:var(--card2);color:white;border:1px solid var(--border);padding:10px 12px;cursor:pointer;font-size:11px;font-weight:bold}.admin-tab.active{border-color:var(--gold);color:var(--gold)}.hidden{display:none!important}.gallery-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.gallery-slot{background:var(--card2);border:1px solid var(--border);padding:14px}.slot-head{display:flex;justify-content:space-between;color:var(--gold);font-weight:bold;font-size:12px;margin-bottom:10px}.slot-live{color:#9be7b1}.slot-preview{height:160px;background:#0b0b0b;border:1px dashed var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);margin-bottom:12px;overflow:hidden;font-size:11px}.slot-preview img{width:100%;height:100%;object-fit:cover}.gallery-slot label,.admin-add-product label{display:block;color:var(--muted);font-size:11px;margin:8px 0 5px}.gallery-slot input,.gallery-slot select,.gallery-slot textarea,.admin-grid input{width:100%;box-sizing:border-box;padding:9px;background:#111;color:white;border:1px solid var(--border);outline:none}.gallery-slot textarea{height:65px;resize:vertical}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.slot-buttons{display:flex;gap:8px;margin-top:10px}.slot-buttons button{flex:1}.stock-row{display:flex;justify-content:space-between;gap:15px;align-items:center;background:var(--card2);border:1px solid var(--border);padding:15px;margin-bottom:10px}.stock-row>div:first-child{display:flex;flex-direction:column;gap:5px}.stock-row span{color:var(--muted);font-size:12px}.restock-controls{display:flex;gap:8px}.restock-controls input{width:110px;padding:9px;background:#111;border:1px solid var(--border);color:white}.restock-controls button{padding:9px 12px}.admin-add-product{margin-top:20px;padding:18px;background:var(--card2);border:1px solid var(--border)}.admin-add-product h3{font-family:"Playfair Display";margin-bottom:12px}.admin-add-product>.order-submit{margin-top:12px}.admin-order{background:var(--card2);border:1px solid var(--border);padding:18px;margin-bottom:14px}.admin-order.pending{border-left:3px solid var(--gold)}.admin-order.completed{border-left:3px solid #6fbf8b}.order-card-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.order-id{font-family:monospace;color:var(--gold);margin-right:8px}.status-pill{font-size:10px;border:1px solid var(--border);padding:4px 7px;text-transform:uppercase}.admin-order h3{font-family:"Playfair Display";font-size:22px;margin:12px 0}.admin-order p{color:var(--muted);font-size:13px;margin:6px 0}.ordered-items{margin:12px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:10px 0}.ordered-items div{display:flex;justify-content:space-between;padding:4px 0;font-size:13px}.customer-note{background:#101010;padding:12px;font-size:13px;line-height:1.5;margin-bottom:12px}.admin-order-actions{display:flex;gap:8px}.admin-order-actions button{flex:1}.danger{color:#ffb0b0}.gold{color:var(--gold)}
+@media(max-width:900px){.gallery-slots{grid-template-columns:1fr 1fr}.stock-row{flex-direction:column;align-items:stretch}.restock-controls input{flex:1}.nav-action{width:100%;text-align:left;border:0;padding:8px 0}.admin-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.gallery-slots{grid-template-columns:1fr}.cart-row{align-items:flex-start}.cart-row>strong{display:none}.admin-order-actions,.slot-buttons{flex-direction:column}.viewer-controls{flex-wrap:wrap}}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav>
+
+    <div class="logo">
+        CANVAS <span>CONNOISSEUR</span>
+    </div>
+
+    <div
+        class="menu"
+        onclick="toggleMenu()">
+
+        ☰
+
+    </div>
+
+    <ul
+        class="nav-links"
+        id="navLinks">
+
+        <li>
+            <a href="#home">Home</a>
+        </li>
+
+        <li>
+            <a href="#gallery">Gallery</a>
+        </li>
+
+        <li>
+            <a href="#museum">Art Museum</a>
+        </li>
+
+        <li>
+            <a href="#shop">Shop</a>
+        </li>
+
+        <li>
+            <a href="#artists">Artists</a>
+        </li>
+
+        <li>
+            <a href="#events">Events</a>
+        </li>
+
+        <li>
+            <a href="#about">About</a>
+        </li>
+
+        <li>
+            <button class="nav-action" onclick="openCart()">CART <span id="cartCount">0</span></button>
+        </li>
+
+        <li>
+            <button class="nav-action admin-access" onclick="openAdmin()">ADMIN</button>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section
+    class="hero"
+    id="home">
+
+    <div class="hero-content">
+
+        <div class="eyebrow">
+            OFFICIAL ARTS CLUB
+        </div>
+
+        <h1>
+            CANVAS<br>
+            <span>CONNOISSEUR</span>
+        </h1>
+
+        <p>
+            Where every stroke, color, idea, and artist
+            becomes part of our story.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a
+                href="#gallery"
+                class="btn btn-primary">
+
+                Explore Art
+
+            </a>
+
+            <a
+                href="#shop"
+                class="btn btn-outline">
+
+                Visit Shop
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ART GALLERY
+===================================================== -->
+
+<section id="gallery">
+
+    <div class="section-title">
+
+        <div>
+
+            <div class="eyebrow">
+                OUR COLLECTION
+            </div>
+
+            <h2>
+                Art <span class="gold">Gallery</span>
+            </h2>
+
+        </div>
+
+        <p>
+            Explore previous and newest works created
+            by members of Canvas Connoisseur.
+            Click an artwork to interact with it.
+        </p>
+
+    </div>
+
+
+    <input
+        id="artSearch"
+        class="search-box"
+        placeholder="Search artwork or artist..."
+        onkeyup="searchArt()"
+    >
+
+
+    <div class="gallery-controls">
+
+        <button
+            class="filter-btn active"
+            onclick="filterArt('all',this)">
+            All
+        </button>
+
+        <button
+            class="filter-btn"
+            onclick="filterArt('new',this)">
+            Newest Arts
+        </button>
+
+        <button
+            class="filter-btn"
+            onclick="filterArt('previous',this)">
+            Previous Arts
+        </button>
+
+        <button
+            class="filter-btn"
+            onclick="filterArt('digital',this)">
+            Digital
+        </button>
+
+        <button
+            class="filter-btn"
+            onclick="filterArt('traditional',this)">
+            Traditional
+        </button>
+
+    </div>
+
+
+    <div
+        class="gallery"
+        id="artGallery">
+
+        <div
+            class="art-card"
+            data-category="new digital"
+            data-search="dreamscape gerry auxtero"
+            onclick="openArtwork(
+                'Dreamscape',
+                'Gerry Auxtero',
+                'https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=1200&q=90'
+            )">
+
+            <img
+                class="art-image"
+                src="https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=900&q=80"
+                alt="Dreamscape">
+
+            <div class="art-info">
+
+                <h3>
+                    Dreamscape
+                </h3>
+
+                <div class="artist">
+                    Gerry Auxtero
+                </div>
+
+                <p>
+                    Digital Artwork • 2026
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="art-card"
+            data-category="previous traditional"
+            data-search="colors memory club artist"
+            onclick="openArtwork(
+                'Colors of Memory',
+                'Club Artist',
+                'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=1200&q=90'
+            )">
+
+            <img
+                class="art-image"
+                src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=900&q=80"
+                alt="Colors of Memory">
+
+            <div class="art-info">
+
+                <h3>
+                    Colors of Memory
+                </h3>
+
+                <div class="artist">
+                    Club Artist
+                </div>
+
+                <p>
+                    Traditional Painting • 2025
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="art-card"
+            data-category="new traditional"
+            data-search="silent morning club artist"
+            onclick="openArtwork(
+                'Silent Morning',
+                'Club Artist',
+                'https://images.unsplash.com/photo-1577083288073-40892c0860a4?auto=format&fit=crop&w=1200&q=90'
+            )">
+
+            <img
+                class="art-image"
+                src="https://images.unsplash.com/photo-1577083288073-40892c0860a4?auto=format&fit=crop&w=900&q=90"
+                alt="Silent Morning">
+
+            <div class="art-info">
+
+                <h3>
+                    Silent Morning
+                </h3>
+
+                <div class="artist">
+                    Club Artist
+                </div>
+
+                <p>
+                    Acrylic • 2026
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="art-card"
+            data-category="previous digital"
+            data-search="another world contestant"
+            onclick="openArtwork(
+                'Another World',
+                'Contestant #004',
+                'https://images.unsplash.com/photo-1561214115-f2f134cc4912?auto=format&fit=crop&w=1200&q=90'
+            )">
+
+            <img
+                class="art-image"
+                src="https://images.unsplash.com/photo-1561214115-f2f134cc4912?auto=format&fit=crop&w=900&q=80"
+                alt="Another World">
+
+            <div class="art-info">
+
+                <h3>
+                    Another World
+                </h3>
+
+                <div class="artist">
+                    Contestant #004
+                </div>
+
+                <p>
+                    Digital Art • 2025
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ARTWORK VIEWER
+===================================================== -->
+
+<div
+    class="art-viewer"
+    id="artViewer">
+
+    <button
+        class="close-viewer"
+        onclick="closeArtwork()"
+        aria-label="Close artwork">
+
+        ×
+
+    </button>
+
+
+    <div class="viewer-box">
+
+        <div
+            class="viewer-stage"
+            id="viewerStage">
+
+            <div
+                class="hologram"
+                id="hologram">
+
+                <img
+                    id="viewerImage"
+                    src=""
+                    alt="Selected artwork">
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="viewer-title"
+            id="viewerTitle">
+        </div>
+
+
+        <div
+            class="viewer-artist"
+            id="viewerArtist">
+        </div>
+
+
+        <div class="viewer-help">
+
+            Drag to rotate • Scroll to zoom
+
+        </div>
+
+
+        <div class="viewer-controls">
+
+            <button onclick="zoomOut()">−</button>
+            <button onclick="resetViewer()">RESET</button>
+            <button onclick="zoomIn()">+</button>
+            <div class="flip-controls"><button class="flip-btn" onclick="setLandscape()">↔ LANDSCAPE</button><button class="flip-btn" onclick="setPortrait()">↕ UPRIGHT</button></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ART MUSEUM
+===================================================== -->
+
+<section
+    class="museum"
+    id="museum">
+
+    <div class="section-title">
+
+        <div>
+
+            <div class="eyebrow">
+                CONTEST ARCHIVE
+            </div>
+
+            <h2>
+                The Art <span class="gold">Museum</span>
+            </h2>
+
+        </div>
+
+        <p>
+            A record of contestants, submitted artworks,
+            contest categories, years, and results.
+        </p>
+
+    </div>
+
+
+    <div class="contest-selector">
+
+        <select
+            id="contestSelect"
+            onchange="changeContest()">
+
+            <option value="2026">
+                Canvas Connoisseur Art Contest — 2026
+            </option>
+
+            <option value="2025">
+                Canvas Connoisseur Art Contest — 2025
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div
+        class="contestants"
+        id="contestants">
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SHOP MARKET
+     COMPLETELY SEPARATE FROM ARTWORKS
+===================================================== -->
+
+<section
+    class="shop-section"
+    id="shop">
+
+    <div class="section-title">
+
+        <div>
+
+            <div class="eyebrow">
+                OFFICIAL MERCHANDISE
+            </div>
+
+            <h2>
+                Shop <span class="gold">Market</span>
+            </h2>
+
+        </div>
+
+        <p>
+            Pins, stickers, prints, and official
+            Canvas Connoisseur merchandise.
+        </p>
+
+    </div>
+
+
+    <div class="shop-notice">
+
+        🛍️ <strong>Shop Market only:</strong>
+        These are merchandise products.
+        Gallery artworks are NOT available for purchase
+        through this order system.
+
+    </div>
+
+
+    <div
+        class="shop"
+        id="shopProducts">
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CART MODAL
+===================================================== -->
+<div class="order-modal" id="cartModal">
+    <div class="order-box cart-box">
+        <button class="modal-x" onclick="closeCart()">×</button>
+        <h2>Your <span class="gold">Cart</span></h2>
+        <div id="cartItems"></div>
+        <div class="order-total"><span>Total</span><span id="cartTotal">₱0</span></div>
+        <div class="order-buttons">
+            <button class="order-submit" onclick="openCheckout()">CHECKOUT</button>
+            <button class="order-cancel" onclick="closeCart()">CLOSE</button>
+        </div>
+    </div>
+</div>
+
+<!-- =====================================================
+     CHECKOUT MODAL
+===================================================== -->
+<div class="order-modal" id="checkoutModal">
+    <div class="order-box">
+        <button class="modal-x" onclick="closeCheckout()">×</button>
+        <h2>Complete <span class="gold">Order</span></h2>
+        <div class="order-product-display" id="checkoutSummary"></div>
+        <form id="checkoutForm">
+            <label>Full Name</label>
+            <input type="text" id="buyerName" required placeholder="Your complete name">
+
+            <label>Facebook Account</label>
+            <input type="text" id="facebookAccount" required placeholder="Facebook name or profile URL">
+
+            <label>Grade Level</label>
+            <select id="gradeLevel" required>
+                <option value="">Select grade level</option>
+                <option>Grade 7</option>
+                <option>Grade 8</option>
+                <option>Grade 9</option>
+                <option>Grade 10</option>
+                <option>Grade 11</option>
+                <option>Grade 12</option>
+            </select>
+
+            <label>Strand</label>
+            <input type="text" id="strand" required placeholder="Example: TVL-ICT">
+
+            <label>Cash Pay Amount</label>
+            <input type="number" id="cashPay" min="0" step="1" required placeholder="Enter the amount you will pay">
+            <small class="form-hint">For cash payment, enter the amount you will hand to the club.</small>
+
+            <label>Description / Notes</label>
+            <textarea id="orderDescription" required placeholder="Pickup details, requests, or other notes..."></textarea>
+
+            <div class="order-total"><span>Order Total</span><span id="checkoutTotal">₱0</span></div>
+            <div class="order-buttons">
+                <button type="submit" class="order-submit">PLACE ORDER</button>
+                <button type="button" class="order-cancel" onclick="closeCheckout()">CANCEL</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- =====================================================
+     ADMIN PANEL
+===================================================== -->
+<div class="order-modal" id="adminLoginModal">
+    <div class="order-box admin-login">
+        <button class="modal-x" onclick="closeAdminLogin()">×</button>
+        <div class="eyebrow">ADMINISTRATIVE ACCESS</div>
+        <h2>Admin <span class="gold">Panel</span></h2>
+        <p class="admin-note">Enter the administrator code to manage gallery uploads, shop stock, and customer orders.</p>
+        <label>Administrator Code</label>
+        <input type="password" id="adminCodeInput" placeholder="Enter admin code">
+        <button class="order-submit" onclick="verifyAdmin()">ENTER ADMIN PANEL</button>
+        <p class="demo-code">Demo administrator code: <b>CC-ADMIN-2026</b></p>
+    </div>
+</div>
+
+<div class="order-modal" id="adminModal">
+    <div class="order-box admin-box">
+        <button class="modal-x" onclick="closeAdmin()">×</button>
+        <div class="eyebrow">CANVAS CONNOISSEUR</div>
+        <h2>Administrative <span class="gold">Panel</span></h2>
+        <div class="admin-tabs">
+            <button class="admin-tab active" onclick="showAdminTab('gallery',this)">GALLERY SLOTS</button>
+            <button class="admin-tab" onclick="showAdminTab('stock',this)">SHOP STOCK</button>
+            <button class="admin-tab" onclick="showAdminTab('orders',this)">ORDERS <span id="pendingBadge">0</span></button>
+        </div>
+
+        <div class="admin-tab-content" id="adminGalleryTab">
+            <p class="admin-note">Upload each artwork into its own slot. Saving a slot publishes it to the public Art Gallery.</p>
+            <div class="gallery-slots" id="gallerySlots"></div>
+        </div>
+
+        <div class="admin-tab-content hidden" id="adminStockTab">
+            <p class="admin-note">Restock existing merchandise or add a new product.</p>
+            <div id="stockManager"></div>
+            <div class="admin-add-product">
+                <h3>Add New Shop Product</h3>
+                <div class="admin-grid">
+                    <input id="newProductName" placeholder="Product name">
+                    <input id="newProductPrice" type="number" min="0" placeholder="Price (₱)">
+                    <input id="newProductStock" type="number" min="0" placeholder="Starting stock">
+                    <input id="newProductImage" type="file" accept="image/*">
+                </div>
+                <button class="order-submit" onclick="addNewProduct()">ADD PRODUCT</button>
+            </div>
+        </div>
+
+        <div class="admin-tab-content hidden" id="adminOrdersTab">
+            <div id="adminOrders"></div>
+        </div>
+    </div>
+</div>
+
+<!-- =====================================================
+     ARTISTS
+===================================================== -->
+
+<section id="artists">
+
+    <div class="section-title">
+
+        <div>
+
+            <div class="eyebrow">
+                CREATIVE COMMUNITY
+            </div>
+
+            <h2>
+                Our <span class="gold">Artists</span>
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div class="artists">
+
+        <div class="artist-card">
+
+            <img
+                class="artist-avatar"
+                src="https://i.pravatar.cc/150?img=12"
+                alt="Artist">
+
+            <h3>
+                Gerry Auxtero
+            </h3>
+
+            <p>
+                Digital Artist
+            </p>
+
+            <p>
+                Canvas Connoisseur
+            </p>
+
+        </div>
+
+
+        <div class="artist-card">
+
+            <img
+                class="artist-avatar"
+                src="https://i.pravatar.cc/150?img=32"
+                alt="Artist">
+
+            <h3>
+                Angel Medina
+            </h3>
+
+            <p>
+                Illustrator
+            </p>
+
+            <p>
+                Canvas Connoisseur
+            </p>
+
+        </div>
+
+
+        <div class="artist-card">
+
+            <img
+                class="artist-avatar"
+                src="https://i.pravatar.cc/150?img=47"
+                alt="Artist">
+
+            <h3>
+                Club Artist
+            </h3>
+
+            <p>
+                Traditional Artist
+            </p>
+
+            <p>
+                Canvas Connoisseur
+            </p>
+
+        </div>
+
+
+        <div class="artist-card">
+
+            <img
+                class="artist-avatar"
+                src="https://i.pravatar.cc/150?img=5"
+                alt="Artist">
+
+            <h3>
+                New Member
+            </h3>
+
+            <p>
+                Mixed Media
+            </p>
+
+            <p>
+                Canvas Connoisseur
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     EVENTS
+===================================================== -->
+
+<section id="events">
+
+    <div class="section-title">
+
+        <div>
+
+            <div class="eyebrow">
+                WHAT'S HAPPENING
+            </div>
+
+            <h2>
+                Events &
+                <span class="gold">
+                    Contests
+                </span>
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div class="events">
+
+        <div class="event">
+
+            <div class="event-date">
+                SEPTEMBER 2026
+            </div>
+
+            <h3>
+                Canvas Connoisseur Art Contest
+            </h3>
+
+            <p>
+                An opportunity for artists to showcase
+                their creativity and imagination.
+            </p>
+
+        </div>
+
+
+        <div class="event">
+
+            <div class="event-date">
+                OCTOBER 2026
+            </div>
+
+            <h3>
+                Art Workshop
+            </h3>
+
+            <p>
+                A collaborative session for members
+                to create and learn together.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section id="about">
+
+    <div class="about">
+
+        <div class="eyebrow">
+            ABOUT CANVAS CONNOISSEUR
+        </div>
+
+        <h2>
+            Every artist leaves a
+            <span class="gold">
+                mark.
+            </span>
+        </h2>
+
+        <p>
+            Canvas Connoisseur is the official Arts Club
+            community dedicated to creativity, expression,
+            collaboration, and appreciation of art.
+        </p>
+
+        <p>
+            Our digital museum preserves artworks,
+            contestants, events, and memories created
+            throughout the club's journey.
+        </p>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div>
+        © 2026
+        <span>Canvas Connoisseur</span>
+        — ARTS CLUB
+    </div>
+
+    <div>
+        Art • Expression • Community
+    </div>
+
+</footer>
+
+
+<script>
+/* =====================================================
+   CANVAS CONNOISSEUR WORKING SYSTEM
+   Gallery flip + admin gallery slots + stock + cart + orders
+===================================================== */
+
+const ADMIN_CODE = "CC-ADMIN-2026";
+const GALLERY_KEY = "cc_gallery_slots_v3";
+const PRODUCT_KEY = "cc_shop_products_v3";
+const CART_KEY = "cc_shop_cart_v3";
+const ORDER_KEY = "cc_shop_orders_v3";
+
+const defaultProducts = [
+    {id:"pin", name:"Canvas Connoisseur Pin", price:50, stock:20, image:"https://images.unsplash.com/photo-1614031679232-0dae776a72ee?auto=format&fit=crop&w=900&q=80"},
+    {id:"sticker", name:"Art Sticker Pack", price:35, stock:30, image:"https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=900&q=80"},
+    {id:"print", name:"Official Art Print", price:100, stock:15, image:"https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=900&q=80"}
+];
+
+let shopProducts = loadJSON(PRODUCT_KEY, defaultProducts);
+let cart = loadJSON(CART_KEY, {});
+let orders = loadJSON(ORDER_KEY, []);
+let gallerySlots = loadJSON(GALLERY_KEY, Array.from({length:12},(_,i)=>({slot:i+1,image:"",title:"",artist:"",year:"2026",category:"Digital",description:""})));
+let adminUnlocked = false;
+let selectedContestYear = "2026";
+
+function loadJSON(key, fallback){
+    try { const raw=localStorage.getItem(key); return raw ? JSON.parse(raw) : structuredClone(fallback); }
+    catch(e){ return structuredClone(fallback); }
+}
+function saveJSON(key,value){ localStorage.setItem(key,JSON.stringify(value)); }
+function esc(value){ return String(value??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;","\"":"&quot;"}[c])); }
+function money(n){ return `₱${Number(n||0).toLocaleString()}`; }
+
+/* ================= NAV ================= */
+function toggleMenu(){ document.getElementById("navLinks").classList.toggle("show"); }
+
+/* ================= GALLERY SEARCH/FILTER ================= */
+function searchArt(){
+    const q=document.getElementById("artSearch").value.toLowerCase().trim();
+    document.querySelectorAll(".art-card").forEach(card=>{
+        card.style.display=(card.dataset.search||"").toLowerCase().includes(q)?"block":"none";
+    });
+}
+function filterArt(category,button){
+    document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
+    button.classList.add("active");
+    document.querySelectorAll(".art-card").forEach(card=>{
+        const cats=(card.dataset.category||"").toLowerCase();
+        card.style.display=(category==="all" || cats.includes(category))?"block":"none";
+    });
+}
+
+/* ================= ART VIEWER ================= */
+let rotationX=0, rotationY=0, rotationZ=0, scale=1;
+let dragging=false,startX=0,startY=0;
+function openArtwork(title,artist,image){
+    document.getElementById("viewerTitle").textContent=title;
+    document.getElementById("viewerArtist").textContent=artist;
+    document.getElementById("viewerImage").src=image;
+    resetViewer();
+    const viewer=document.getElementById("artViewer");
+    viewer.style.display="flex";
+    viewer.classList.add("show");
+    document.body.classList.add("no-scroll");
+}
+function closeArtwork(e){
+    if(e){ e.preventDefault(); e.stopPropagation(); }
+    const viewer=document.getElementById("artViewer");
+    if(!viewer) return;
+    viewer.classList.remove("show");
+    viewer.style.display="none";
+    document.body.classList.remove("no-scroll");
+}
+
+function updateViewer(){ document.getElementById("hologram").style.transform=`rotateX(${rotationX}deg) rotateY(${rotationY}deg) rotateZ(${rotationZ}deg) scale(${scale})`; }
+function zoomIn(){ scale=Math.min(3,scale+.15); updateViewer(); }
+function zoomOut(){ scale=Math.max(.5,scale-.15); updateViewer(); }
+function setLandscape(){ rotationZ=90; updateViewer(); }
+function setPortrait(){ rotationZ=0; updateViewer(); }
+function resetViewer(){ rotationX=0; rotationY=0; rotationZ=0; scale=1; updateViewer(); }
+const stage=document.getElementById("viewerStage");
+stage.addEventListener("pointerdown",e=>{dragging=true;startX=e.clientX;startY=e.clientY;stage.setPointerCapture(e.pointerId);});
+stage.addEventListener("pointermove",e=>{if(!dragging)return;rotationY+=(e.clientX-startX)*.5;rotationX-=(e.clientY-startY)*.5;startX=e.clientX;startY=e.clientY;updateViewer();});
+stage.addEventListener("pointerup",()=>dragging=false);
+stage.addEventListener("pointercancel",()=>dragging=false);
+stage.addEventListener("wheel",e=>{e.preventDefault();e.deltaY<0?zoomIn():zoomOut();},{passive:false});
+const artViewer=document.getElementById("artViewer");
+artViewer.addEventListener("click",e=>{
+    if(e.target===artViewer) closeArtwork(e);
+});
+document.addEventListener("keydown",e=>{
+    if(e.key==="Escape" && artViewer.classList.contains("show")) closeArtwork(e);
+});
+const closeViewerButton=document.querySelector(".close-viewer");
+if(closeViewerButton){
+    closeViewerButton.addEventListener("click",closeArtwork);
+}
+
+
+/* ================= DYNAMIC GALLERY ================= */
+function renderPublicGallery(){
+    const gallery=document.getElementById("artGallery");
+    gallery.querySelectorAll(".admin-art-card").forEach(c=>c.remove());
+    gallerySlots.filter(x=>x.image && x.title).forEach(item=>{
+        const card=document.createElement("div");
+        card.className="art-card admin-art-card";
+        card.dataset.category=`new ${item.category.toLowerCase()} ${item.year}`;
+        card.dataset.search=`${item.title} ${item.artist} ${item.category} ${item.year} ${item.description}`.toLowerCase();
+        card.onclick=()=>openArtwork(item.title,item.artist,item.image);
+        card.innerHTML=`<img class="art-image" src="${item.image}" alt="${esc(item.title)}"><div class="art-info"><h3>${esc(item.title)}</h3><div class="artist">${esc(item.artist)}</div><p>${esc(item.category)} • ${esc(item.year)}</p></div>`;
+        gallery.appendChild(card);
+    });
+}
+
+/* ================= IMAGE COMPRESSION ================= */
+function readImage(file,max=1400){
+    return new Promise((resolve,reject)=>{
+        if(!file)return resolve("");
+        const reader=new FileReader();
+        reader.onload=()=>{
+            const img=new Image();
+            img.onload=()=>{
+                const ratio=Math.min(1,max/Math.max(img.width,img.height));
+                const canvas=document.createElement("canvas");
+                canvas.width=Math.max(1,Math.round(img.width*ratio));
+                canvas.height=Math.max(1,Math.round(img.height*ratio));
+                canvas.getContext("2d").drawImage(img,0,0,canvas.width,canvas.height);
+                resolve(canvas.toDataURL("image/jpeg",.82));
+            };
+            img.onerror=reject; img.src=reader.result;
+        };
+        reader.onerror=reject; reader.readAsDataURL(file);
+    });
+}
+
+/* ================= SHOP ================= */
+function renderShop(){
+    const container=document.getElementById("shopProducts");
+    container.innerHTML=shopProducts.map(p=>{
+        const qty=Number(cart[p.id]||0);
+        const sold=p.stock<=0;
+        return `<div class="product"><img src="${p.image}" alt="${esc(p.name)}"><div class="product-content"><h3>${esc(p.name)}</h3><div class="price">${money(p.price)}</div><div class="stock">Stock: <strong>${p.stock}</strong>${qty?` • In cart: <strong>${qty}</strong>`:""}</div><button class="buy" ${sold?"disabled":""} onclick="addToCart('${p.id}')">${sold?"SOLD OUT":"ADD TO CART"}</button></div></div>`;
+    }).join("");
+    updateCartCount();
+}
+function addToCart(id){
+    const p=shopProducts.find(x=>x.id===id); if(!p)return;
+    const current=Number(cart[id]||0);
+    if(current>=p.stock){alert("You cannot add more than the available stock.");return;}
+    cart[id]=current+1; saveJSON(CART_KEY,cart); renderShop();
+}
+function changeCartQty(id,delta){
+    const p=shopProducts.find(x=>x.id===id); if(!p)return;
+    const next=Number(cart[id]||0)+delta;
+    if(next<=0) delete cart[id]; else if(next<=p.stock) cart[id]=next; else {alert("That quantity is not available in stock.");return;}
+    saveJSON(CART_KEY,cart); renderShop(); renderCart();
+}
+function cartTotal(){return Object.entries(cart).reduce((sum,[id,qty])=>{const p=shopProducts.find(x=>x.id===id);return sum+(p?p.price*qty:0)},0)}
+function updateCartCount(){ document.getElementById("cartCount").textContent=Object.values(cart).reduce((a,b)=>a+Number(b),0); }
+function renderCart(){
+    const box=document.getElementById("cartItems");
+    const entries=Object.entries(cart).filter(([id,qty])=>shopProducts.some(p=>p.id===id&&qty>0));
+    if(!entries.length){box.innerHTML='<div class="empty-state">Your cart is empty. Add something from the Shop Market.</div>';document.getElementById("cartTotal").textContent="₱0";return;}
+    box.innerHTML=entries.map(([id,qty])=>{const p=shopProducts.find(x=>x.id===id);return `<div class="cart-row"><img src="${p.image}" alt=""><div class="cart-main"><b>${esc(p.name)}</b><span>${money(p.price)} each</span><div class="qty-controls"><button onclick="changeCartQty('${id}',-1)">−</button><strong>${qty}</strong><button onclick="changeCartQty('${id}',1)">+</button><button class="remove-btn" onclick="removeFromCart('${id}')">REMOVE</button></div></div><strong>${money(p.price*qty)}</strong></div>`}).join("");
+    document.getElementById("cartTotal").textContent=money(cartTotal());
+}
+function removeFromCart(id){delete cart[id];saveJSON(CART_KEY,cart);renderShop();renderCart();}
+function openCart(){renderCart();document.getElementById("cartModal").classList.add("show");document.body.classList.add("no-scroll");}
+function closeCart(){document.getElementById("cartModal").classList.remove("show");document.body.classList.remove("no-scroll");}
+function openCheckout(){
+    if(!Object.keys(cart).length){alert("Your cart is empty.");return;}
+    document.getElementById("checkoutSummary").textContent=`${Object.values(cart).reduce((a,b)=>a+Number(b),0)} item(s) selected`;
+    document.getElementById("checkoutTotal").textContent=money(cartTotal());
+    closeCart(); document.getElementById("checkoutModal").classList.add("show"); document.body.classList.add("no-scroll");
+}
+function closeCheckout(){document.getElementById("checkoutModal").classList.remove("show");document.body.classList.remove("no-scroll");}
+
+document.getElementById("checkoutForm").addEventListener("submit",e=>{
+    e.preventDefault();
+    const total=cartTotal();
+    const cash=Number(document.getElementById("cashPay").value||0);
+    if(cash<total){alert(`Cash pay must be at least ${money(total)}.`);return;}
+    const items=[];
+    for(const [id,qty] of Object.entries(cart)){
+        const p=shopProducts.find(x=>x.id===id); if(!p||qty<1)continue;
+        if(qty>p.stock){alert(`${p.name} no longer has enough stock.`);return;}
+        items.push({id:p.id,name:p.name,price:p.price,quantity:qty,subtotal:p.price*qty});
+    }
+    if(!items.length){alert("Your cart is empty.");return;}
+    shopProducts=shopProducts.map(p=>{const found=items.find(i=>i.id===p.id);return found?{...p,stock:p.stock-found.quantity}:p;});
+    const order={id:`CC-${Date.now().toString(36).toUpperCase()}`,createdAt:new Date().toLocaleString(),buyerName:document.getElementById("buyerName").value.trim(),facebook:document.getElementById("facebookAccount").value.trim(),grade:document.getElementById("gradeLevel").value,strand:document.getElementById("strand").value.trim(),cashPay:cash,description:document.getElementById("orderDescription").value.trim(),items,total,status:"Pending"};
+    orders.unshift(order); cart={}; saveJSON(PRODUCT_KEY,shopProducts); saveJSON(ORDER_KEY,orders); saveJSON(CART_KEY,cart); renderShop(); updatePendingBadge();
+    document.getElementById("checkoutForm").reset(); closeCheckout(); alert(`Order ${order.id} was submitted successfully! The administrator can now see it in the Admin Panel.`);
+});
+
+/* ================= ADMIN LOGIN ================= */
+function openAdmin(){document.getElementById("adminCodeInput").value="";document.getElementById("adminLoginModal").classList.add("show");document.body.classList.add("no-scroll");setTimeout(()=>document.getElementById("adminCodeInput").focus(),50);}
+function closeAdminLogin(){document.getElementById("adminLoginModal").classList.remove("show");document.body.classList.remove("no-scroll");}
+function verifyAdmin(){if(document.getElementById("adminCodeInput").value===ADMIN_CODE){adminUnlocked=true;closeAdminLogin();openAdminPanel();}else alert("Incorrect administrator code.");}
+function openAdminPanel(){document.getElementById("adminModal").classList.add("show");document.body.classList.add("no-scroll");renderGallerySlots();renderStockManager();renderAdminOrders();updatePendingBadge();}
+
+function closeAdmin(){adminUnlocked=false;document.getElementById("adminModal").classList.remove("show");document.body.classList.remove("no-scroll");}
+function showAdminTab(tab,button){document.querySelectorAll(".admin-tab").forEach(b=>b.classList.remove("active"));button.classList.add("active");document.querySelectorAll(".admin-tab-content").forEach(x=>x.classList.add("hidden"));document.getElementById(`admin${tab[0].toUpperCase()+tab.slice(1)}Tab`).classList.remove("hidden");if(tab==="orders")renderAdminOrders();if(tab==="stock")renderStockManager();if(tab==="gallery")renderGallerySlots();}
+
+/* ================= ADMIN GALLERY SLOTS ================= */
+function renderGallerySlots(){
+    document.getElementById("gallerySlots").innerHTML=gallerySlots.map((g,i)=>`<div class="gallery-slot"><div class="slot-head"><span>SLOT ${i+1}</span>${g.image?'<span class="slot-live">PUBLISHED</span>':''}</div><div class="slot-preview">${g.image?`<img src="${g.image}" alt="">`:'<span>UPLOAD ARTWORK</span>'}</div><label>Artwork Image</label><input type="file" id="slotFile${i}" accept="image/*"><label>Artwork Name</label><input id="slotTitle${i}" value="${esc(g.title)}" placeholder="What is the artwork called?"><label>Artist Name</label><input id="slotArtist${i}" value="${esc(g.artist)}" placeholder="Who created it?"><div class="admin-grid"><div><label>Year</label><input id="slotYear${i}" value="${esc(g.year||"2026")}" placeholder="2026"></div><div><label>Category</label><select id="slotCategory${i}"><option ${g.category==="Digital"?"selected":""}>Digital</option><option ${g.category==="Traditional"?"selected":""}>Traditional</option><option ${g.category==="Illustration"?"selected":""}>Illustration</option><option ${g.category==="Mixed Media"?"selected":""}>Mixed Media</option></select></div></div><label>Description</label><textarea id="slotDesc${i}" placeholder="Describe the artwork...">${esc(g.description)}</textarea><div class="slot-buttons"><button class="order-submit" onclick="saveGallerySlot(${i})">SAVE SLOT</button><button class="order-cancel" onclick="clearGallerySlot(${i})">CLEAR</button></div></div>`).join("");
+}
+async function saveGallerySlot(i){
+    const file=document.getElementById(`slotFile${i}`).files[0];
+    let image=gallerySlots[i].image;
+    if(file)image=await readImage(file);
+    const title=document.getElementById(`slotTitle${i}`).value.trim(); const artist=document.getElementById(`slotArtist${i}`).value.trim();
+    if(!image||!title||!artist){alert("Please provide an image, artwork name, and artist name.");return;}
+    gallerySlots[i]={slot:i+1,image,title,artist,year:document.getElementById(`slotYear${i}`).value.trim()||"2026",category:document.getElementById(`slotCategory${i}`).value,description:document.getElementById(`slotDesc${i}`).value.trim()};
+    saveJSON(GALLERY_KEY,gallerySlots);renderPublicGallery();renderGallerySlots();alert(`Gallery Slot ${i+1} saved and published.`);
+}
+function clearGallerySlot(i){if(!confirm(`Clear Gallery Slot ${i+1}?`))return;gallerySlots[i]={slot:i+1,image:"",title:"",artist:"",year:"2026",category:"Digital",description:""};saveJSON(GALLERY_KEY,gallerySlots);renderPublicGallery();renderGallerySlots();}
+
+/* ================= ADMIN STOCK ================= */
+function renderStockManager(){document.getElementById("stockManager").innerHTML=shopProducts.map(p=>`<div class="stock-row"><div><b>${esc(p.name)}</b><span>${money(p.price)} • Current stock: <strong>${p.stock}</strong></span></div><div class="restock-controls"><input id="restock-${p.id}" type="number" min="1" placeholder="Qty"><button class="order-submit" onclick="restockProduct('${p.id}')">RESTOCK</button></div></div>`).join("");}
+function restockProduct(id){const qty=Number(document.getElementById(`restock-${id}`).value);if(!qty||qty<1){alert("Enter a restock quantity.");return;}shopProducts=shopProducts.map(p=>p.id===id?{...p,stock:p.stock+qty}:p);saveJSON(PRODUCT_KEY,shopProducts);renderShop();renderStockManager();alert("Stock updated successfully.");}
+async function addNewProduct(){const name=document.getElementById("newProductName").value.trim();const price=Number(document.getElementById("newProductPrice").value);const stock=Number(document.getElementById("newProductStock").value);const file=document.getElementById("newProductImage").files[0];if(!name||price<0||stock<0||!file){alert("Enter a product name, price, starting stock, and image.");return;}const image=await readImage(file);shopProducts.push({id:`product-${Date.now()}`,name,price,stock,image});saveJSON(PRODUCT_KEY,shopProducts);renderShop();renderStockManager();document.getElementById("newProductName").value="";document.getElementById("newProductPrice").value="";document.getElementById("newProductStock").value="";document.getElementById("newProductImage").value="";alert("New shop product added.");}
+
+/* ================= ADMIN ORDERS ================= */
+function updatePendingBadge(){const n=orders.filter(o=>o.status==="Pending").length;document.getElementById("pendingBadge").textContent=n;}
+function renderAdminOrders(){const box=document.getElementById("adminOrders");if(!orders.length){box.innerHTML='<div class="empty-state">No customer orders yet.</div>';return;}box.innerHTML=orders.map(o=>`<div class="admin-order ${o.status.toLowerCase()}"><div class="order-card-head"><div><span class="order-id">${esc(o.id)}</span><span class="status-pill">${esc(o.status)}</span></div><small>${esc(o.createdAt)}</small></div><h3>${esc(o.buyerName)}</h3><p><b>Facebook:</b> ${esc(o.facebook)}</p><p><b>Grade:</b> ${esc(o.grade)} &nbsp; <b>Strand:</b> ${esc(o.strand)}</p><p><b>Cash Pay:</b> ${money(o.cashPay)}</p><div class="ordered-items">${o.items.map(i=>`<div>${esc(i.name)} × ${i.quantity} <strong>${money(i.subtotal)}</strong></div>`).join("")}</div><div class="order-total"><span>Total</span><span>${money(o.total)}</span></div><div class="customer-note"><b>Customer Notes:</b><br>${esc(o.description)}</div><div class="admin-order-actions">${o.status==="Pending"?`<button class="order-submit" onclick="completeOrder('${o.id}')">MARK COMPLETE</button><button class="order-cancel danger" onclick="deleteOrder('${o.id}',true)">DELETE / CANCEL</button>`:`<button class="order-cancel danger" onclick="deleteOrder('${o.id}',false)">DELETE RECORD</button>`}</div></div>`).join("");}
+function completeOrder(id){orders=orders.map(o=>o.id===id?{...o,status:"Completed"}:o);saveJSON(ORDER_KEY,orders);renderAdminOrders();updatePendingBadge();}
+function deleteOrder(id,returnStock){const o=orders.find(x=>x.id===id);if(!o)return;if(!confirm(`Delete order ${id}?`))return;if(returnStock&&o.status==="Pending"){shopProducts=shopProducts.map(p=>{const i=o.items.find(x=>x.id===p.id);return i?{...p,stock:p.stock+i.quantity}:p});saveJSON(PRODUCT_KEY,shopProducts);renderShop();}orders=orders.filter(x=>x.id!==id);saveJSON(ORDER_KEY,orders);renderAdminOrders();updatePendingBadge();}
+
+/* ================= MUSEUM ================= */
+const contests={
+2026:[{number:"001",name:"Gerry Auxtero",artwork:"Dreamscape",category:"Digital Art",year:"2026",placement:"★ Champion"},{number:"002",name:"Angel Medina",artwork:"Fragments",category:"Illustration",year:"2026",placement:"★ 2nd Place"},{number:"003",name:"Club Artist",artwork:"Solitude",category:"Traditional",year:"2026",placement:"★ Participant"}],
+2025:[{number:"001",name:"Previous Artist",artwork:"Colors of Memory",category:"Traditional",year:"2025",placement:"★ Champion"},{number:"002",name:"Previous Contestant",artwork:"Another World",category:"Digital Art",year:"2025",placement:"★ 2nd Place"},{number:"003",name:"Club Member",artwork:"The Beginning",category:"Illustration",year:"2025",placement:"★ Participant"}]
+};
+function changeContest(){const year=document.getElementById("contestSelect").value;const container=document.getElementById("contestants");container.innerHTML=contests[year].map(p=>`<div class="contestant"><span class="number">#${p.number}</span><h3>${esc(p.name)}</h3><p>Artwork: <b>${esc(p.artwork)}</b></p><p>Category: ${esc(p.category)}</p><p>Contest Year: ${p.year}</p><span class="placement">${esc(p.placement)}</span></div>`).join("");}
+
+/* ================= SYNC BETWEEN TABS ================= */
+window.addEventListener("storage",e=>{
+    if(e.key===PRODUCT_KEY){shopProducts=loadJSON(PRODUCT_KEY,defaultProducts);renderShop();}
+    if(e.key===CART_KEY){cart=loadJSON(CART_KEY,{});renderShop();renderCart();}
+    if(e.key===ORDER_KEY){orders=loadJSON(ORDER_KEY,[]);updatePendingBadge();if(adminUnlocked)renderAdminOrders();}
+    if(e.key===GALLERY_KEY){gallerySlots=loadJSON(GALLERY_KEY,gallerySlots);renderPublicGallery();if(adminUnlocked)renderGallerySlots();}
+});
+
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeArtwork();closeCart();closeCheckout();closeAdminLogin();}});
+
+renderPublicGallery();
+renderShop();
+changeContest();
+updatePendingBadge();
+</script>
+
+</body>
+</html>nav {
     position: fixed;
     top: 0;
     left: 0;
